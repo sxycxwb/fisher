@@ -22,7 +22,7 @@ class YuShuBook:
             self.books.append(data)
 
     def search_by_keyword(self, keyword, page):
-        url = self.keyword_url.format(keyword, current_app.config['PER_PAGE'], cls.calculate_start(page))
+        url = self.keyword_url.format(keyword, current_app.config['PER_PAGE'], self.calculate_start(page))
         result = HTTP.get(url)
         self.__fill_collection(result)
 
@@ -33,3 +33,7 @@ class YuShuBook:
 
     def calculate_start(self, page):
         return current_app.config['PER_PAGE'] * (page - 1)
+
+    @property
+    def first(self):
+        return self.books[0] if self.total >= 1 else None
