@@ -1,10 +1,12 @@
 from _curses import flash
 
-from flask import current_app, url_for, redirect
+from flask import current_app, url_for, redirect, render_template
 from flask_login import current_user
 
 from app.models.base import db
 from app.models.wish import Wish
+from app.view_models.trade import MyTrades
+from app.view_models.wish import MyWishes
 from . import web
 
 __author__ = '七月'
@@ -12,7 +14,12 @@ __author__ = '七月'
 
 @web.route('/my/wish')
 def my_wish():
-    pass
+    uid = current_user.id
+    wishes_of_mine = Wish.get_user_wishes(uid)
+    isbn_list = [wish.isbn for wish in wishes_of_mine]
+    gift_count_list = Wish.get_gifts_counts(isbn_list)
+    view_model = MyTrades(wishes_of_mine, gift_count_list)
+    return render_template('my_wish.html', wishes=view_model.trades)
 
 
 @web.route('/wish/book/<isbn>')

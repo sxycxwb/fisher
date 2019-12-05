@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 from collections import namedtuple
 
 from app.models.base import db, Base
-from app.models.wish import Wish
+
 from app.spider.yushu_book import YuShuBook
 from app.view_models.book import BookViewModel
 
@@ -28,6 +28,7 @@ class Gift(Base):
 
     @classmethod
     def get_wish_counts(cls, isbn_list):
+        from app.models.wish import Wish
         # Wish中查询某个礼物
         # 条件表达式
         # 每个isbn 对应的wish数量
