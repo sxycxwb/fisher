@@ -15,6 +15,7 @@ def send_async_email(app, msg):
 
 
 def send_mail(to, subject, template, **kwargs):
+
     msg = Message('[鱼书]' + ' ' + subject,
                   sender=current_app.config['MAIL_USERNAME'],
                   recipients=[to])

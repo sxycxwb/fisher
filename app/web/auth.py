@@ -53,8 +53,8 @@ def forget_password_request():
                       'email/reset_password.html', user=user,
                       token=user.generate_token())
             flash('一封邮件已经发送到邮箱'+account_email+'，请及时查收')
-            # return redirect(url_for('web.login'))
-        return render_template('auth/forget_password_request.html', form=form)
+            return redirect(url_for('web.login'))
+    return render_template('auth/forget_password_request.html')
 
 
 @web.route('/reset/password/<token>', methods=['GET', 'POST'])
